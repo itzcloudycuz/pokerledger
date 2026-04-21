@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🃏 Poker Ledger</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>🃏 Poker Ledger</h1>
+
+  <button id="themeToggle">🌙 Toggle Theme</button>
+
+  <hr>
+
+  <h2>Add Player</h2>
+  <input id="playerName" placeholder="Enter player name">
+  <button onclick="addPlayer()">Add Player</button>
+
+  <h2>Add Transaction</h2>
+  <input id="name" placeholder="Name">
+  <input id="amount" placeholder="Amount" type="number">
+  <select id="type">
+    <option value="win">Win</option>
+    <option value="loss">Loss</option>
+  </select>
+  <button onclick="addTransaction()">Add</button>
+
+  <h2>Balances</h2>
+  <div id="balances"></div>
+
+  <h2>Game History</h2>
+  <button onclick="saveGame()">💾 Save Game</button>
+  <div id="history"></div>
+
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
