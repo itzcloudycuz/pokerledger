@@ -167,3 +167,9 @@ function renderSettlement(settlements) {
 
 // Initial render
 render();
+render();
+
+window.addPlayer = addPlayer;
+window.addTransaction = addTransaction;
+window.calculateSettlement = calculateSettlement;
+window.saveGame = saveGame;
