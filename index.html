@@ -26,17 +26,19 @@
   <button onclick="addTransaction()">Add</button>
 
   <h2>Balances</h2>
-<div id="balances"></div>
+  <div id="balances"></div>
 
-<h2>Settlement</h2>
-<button onclick="calculateSettlement()">🧮 Settle</button>
-<div id="settlement"></div>
+  <h2>Settlement</h2>
+  <button onclick="calculateSettlement()">🧮 Settle</button>
+  <div id="settlement"></div>
 
   <h2>Game History</h2>
   <button onclick="saveGame()">💾 Save Game</button>
   <div id="history"></div>
 
-  <script src="firebase.js"></script>
+  <!-- IMPORTANT ORDER -->
+  <script type="module" src="firebase.js"></script>
   <script src="app.js"></script>
+
 </body>
 </html>
