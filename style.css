@@ -1,0 +1,66 @@
+body {
+  background: #ffffff;
+  color: #111;
+  font-family: Arial;
+  padding: 20px;
+}
+
+.dark {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+/* Sections */
+h1, h2 {
+  margin-top: 20px;
+}
+
+/* Cards */
+#balances div {
+  background: #f1f5f9;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.dark #balances div {
+  background: #1e293b;
+}
+
+/* Buttons */
+button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.dark button {
+  background: #334155;
+  color: white;
+}
+
+/* Toggle button visibility fix */
+#themeToggle {
+  background: #e2e8f0;
+}
+
+.dark #themeToggle {
+  background: #22c55e;
+  color: black;
+}
+
+/* Inputs */
+input, select {
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.dark input, .dark select {
+  background: #1e293b;
+  color: white;
+  border: 1px solid #475569;
+}
