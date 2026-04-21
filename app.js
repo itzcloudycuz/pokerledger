@@ -57,12 +57,12 @@ function addTransaction() {
 
   players[name].games += 1;
 
-  if (type === "win") {
-    players[name].balance += amount;
-    players[name].wins += 1;
-  } else {
-    players[name].balance -= amount;
-  }
+if (type === "buyin") {
+  players[name].balance -= amount;
+} else if (type === "win") {
+  players[name].balance += amount;
+  players[name].wins += 1;
+}
 
   saveToFirebase();
 }
