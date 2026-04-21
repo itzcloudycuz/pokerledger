@@ -77,14 +77,15 @@ function render() {
       ? ((player.wins / player.games) * 100).toFixed(1)
       : 0;
 
-    html += `
-      <div>
-        <strong>${p}</strong><br>
-        Balance: ₹${player.balance}<br>
-        Win Rate: ${winRate}%<br>
-        Games: ${player.games}
-      </div>
-    `;
+html += `
+  <div>
+    <strong>${p}</strong><br>
+    Balance: ₹${player.balance}<br>
+    Buy-ins: ₹${player.buyins || 0}<br>
+    Win Rate: ${winRate}%<br>
+    Games: ${player.games}
+  </div>
+`;
   }
 
   document.getElementById("balances").innerHTML = html;
