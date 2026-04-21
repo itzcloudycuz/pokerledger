@@ -104,3 +104,59 @@ function renderHistory() {
 
 // Initial render
 render();
+// 🧮 Settlement Logic
+function calculateSettlement() {
+  let creditors = [];
+  let debtors = [];
+
+  for (let name in players) {
+    const balance = players[name].balance;
+
+    if (balance > 0) {
+      creditors.push({ name, amount: balance });
+    } else if (balance < 0) {
+      debtors.push({ name, amount: -balance });
+    }
+  }
+
+  creditors.sort((a, b) => b.amount - a.amount);
+  debtors.sort((a, b) => b.amount - a.amount);
+
+  let i = 0, j = 0;
+  let settlements = [];
+
+  while (i < creditors.length && j < debtors.length) {
+    let credit = creditors[i];
+    let debt = debtors[j];
+
+    let amount = Math.min(credit.amount, debt.amount);
+
+    settlements.push(`${debt.name} pays ${credit.name} ₹${amount}`);
+
+    credit.amount -= amount;
+    debt.amount -= amount;
+
+    if (credit.amount === 0) i++;
+    if (debt.amount === 0) j++;
+  }
+
+  renderSettlement(settlements);
+}
+
+
+// 🧾 Render Settlement
+function renderSettlement(settlements) {
+  if (settlements.length === 0) {
+    document.getElementById("settlement").innerHTML =
+      "✅ All settled!";
+    return;
+  }
+
+  let html = "";
+
+  settlements.forEach(s => {
+    html += `<div>💸 ${s}</div>`;
+  });
+
+  document.getElementById("settlement").innerHTML = html;
+}
