@@ -1,6 +1,8 @@
 let players = {};
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
+const gameRef = doc(db, "games", "poker-session");
+
 // 🌙 Dark Mode
 const toggle = document.getElementById("themeToggle");
 
@@ -13,9 +15,21 @@ toggle.onclick = () => {
   );
 };
 
-// Load saved theme
 if (localStorage.getItem("theme") === "dark") {
   document.body.classList.add("dark");
+}
+
+// 📡 REAL-TIME SYNC
+onSnapshot(gameRef, (docSnap) => {
+  if (docSnap.exists()) {
+    players = docSnap.data().players || {};
+    render();
+  }
+});
+
+// 💾 SAVE
+async function saveToFirebase() {
+  await setDoc(gameRef, { players });
 }
 
 // ➕ Add Player
@@ -30,7 +44,7 @@ function addPlayer() {
     games: 0
   };
 
-  render();
+  saveToFirebase();
 }
 
 // 💰 Add Transaction
@@ -50,10 +64,10 @@ function addTransaction() {
     players[name].balance -= amount;
   }
 
-  render();
+  saveToFirebase();
 }
 
-// 📊 Render UI
+// 📊 Render
 function render() {
   let html = "";
 
@@ -78,7 +92,7 @@ function render() {
   renderHistory();
 }
 
-// 💾 Save Game Snapshot
+// 📅 History
 function saveGame() {
   history.push({
     date: new Date().toLocaleString(),
@@ -86,12 +100,9 @@ function saveGame() {
   });
 
   localStorage.setItem("history", JSON.stringify(history));
-
-  alert("Game Saved!");
   renderHistory();
 }
 
-// 📅 Render History
 function renderHistory() {
   let html = "";
 
@@ -102,9 +113,7 @@ function renderHistory() {
   document.getElementById("history").innerHTML = html;
 }
 
-// Initial render
-render();
-// 🧮 Settlement Logic
+// 🧮 Settlement
 function calculateSettlement() {
   let creditors = [];
   let debtors = [];
@@ -112,11 +121,8 @@ function calculateSettlement() {
   for (let name in players) {
     const balance = players[name].balance;
 
-    if (balance > 0) {
-      creditors.push({ name, amount: balance });
-    } else if (balance < 0) {
-      debtors.push({ name, amount: -balance });
-    }
+    if (balance > 0) creditors.push({ name, amount: balance });
+    else if (balance < 0) debtors.push({ name, amount: -balance });
   }
 
   creditors.sort((a, b) => b.amount - a.amount);
@@ -143,8 +149,6 @@ function calculateSettlement() {
   renderSettlement(settlements);
 }
 
-
-// 🧾 Render Settlement
 function renderSettlement(settlements) {
   if (settlements.length === 0) {
     document.getElementById("settlement").innerHTML =
@@ -160,3 +164,6 @@ function renderSettlement(settlements) {
 
   document.getElementById("settlement").innerHTML = html;
 }
+
+// Initial render
+render();
